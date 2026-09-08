@@ -1,0 +1,16 @@
+{
+  "name": "Mes heures — LCMC",
+  "short_name": "Mes heures",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8fbff",
+  "theme_color": "#0b3d91",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

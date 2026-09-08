@@ -1,0 +1,1 @@
+LCMC v2 : une seule journée par date. Enregistre le matin, puis ouvre la même date pour compléter l'après-midi. Le bouton ✎ permet de modifier la journée.
