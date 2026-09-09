@@ -1,40 +1,225 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b3d91"><link rel="manifest" href="manifest.json"><title>Mes heures — LCMC</title><style>
-*{box-sizing:border-box}body{margin:0;background:#edf4fa;color:#172b4d;font-family:system-ui,sans-serif}.app{max-width:480px;margin:auto;min-height:100vh;background:#f8fbff}.hero{background:linear-gradient(145deg,#0b3d91,#1769aa);color:#fff;padding:16px;border-radius:0 0 28px 28px}.brand{height:72px;background:#fff;border-radius:16px;padding:6px 10px;display:flex;align-items:center;justify-content:center}.brand img{width:100%;height:100%;object-fit:contain}h1{font-size:28px;margin:17px 3px 3px}.sub{opacity:.8}.content{padding:16px 16px 90px}.summary{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{background:#fff;border-radius:18px;padding:16px;box-shadow:0 7px 20px #173f2a12}.wide{grid-column:1/-1}.label{font-size:11px;color:#70829a;font-weight:800}.value{font-size:24px;font-weight:900;margin-top:5px}.green{color:#1769aa}.title{display:flex;justify-content:space-between;align-items:center;margin:22px 3px 10px}.title h2{font-size:18px;margin:0}.link{color:#1769aa;font-weight:800;font-size:13px}.add{width:100%;border:0;background:#f0c746;color:#0b3d91;border-radius:16px;padding:15px;font-weight:900;font-size:16px}.calendar{background:#fff;border-radius:20px;padding:14px}.calhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.calhead strong{text-transform:capitalize}.nav{border:0;background:#eaf3ff;width:34px;height:34px;border-radius:10px;font-weight:900}.week,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:4px}.week span{font-size:10px;color:#8798aa;font-weight:800}.day{min-height:38px;border:0;background:#fff;border-radius:10px;font-weight:700;position:relative}.day.muted{color:#bbc2bd}.day.has:after{content:"";position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:5px;height:5px;background:#1769aa;border-radius:50%}.day.today{outline:2px solid #f0c746}.entry{background:#fff;border-radius:17px;padding:12px;margin-bottom:9px;display:flex;gap:10px;align-items:center}.datebox{width:48px;height:52px;background:#eaf3ff;border-radius:13px;display:grid;place-items:center}.datebox b{font-size:19px}.datebox small{font-size:9px;text-transform:uppercase;color:#6d7d91}.entrymain{flex:1;min-width:0}.entrymain strong{font-size:14px}.entrymain small{display:block;color:#6d7d91;margin-top:4px;font-size:11px}.hours{font-weight:900;color:#1769aa;text-align:right}.edit{border:0;background:#eaf3ff;color:#0b3d91;border-radius:9px;padding:7px;font-weight:900}.empty{text-align:center;color:#8798aa;background:#fff;border-radius:17px;padding:22px}.modal{position:fixed;inset:0;background:#0c1c12aa;display:none;align-items:flex-end;z-index:5}.modal.show{display:flex}.sheet{background:#f8fbff;width:100%;max-width:480px;margin:auto;border-radius:26px 26px 0 0;padding:20px 17px 30px;max-height:92vh;overflow:auto}.handle{width:45px;height:5px;background:#ccd5cd;border-radius:9px;margin:0 auto 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}label{font-size:11px;font-weight:900;color:#64778f;display:block;margin-bottom:5px}input,textarea{width:100%;border:1px solid #d9e4f0;background:#fff;border-radius:12px;padding:12px;font:inherit}textarea{min-height:65px}.full,.period,.status{grid-column:1/-1}.period{background:#eaf3ff;border-radius:14px;padding:10px 12px;font-weight:900;font-size:13px;color:#145a96}.status{background:#fff;border:1px solid #d9e4f0;border-radius:14px;padding:11px;font-size:13px}.buttons{display:flex;gap:9px;margin-top:14px}.buttons button{flex:1;border:0;border-radius:13px;padding:13px;font-weight:900}.save{background:#0b3d91;color:#fff}.cancel{background:#e8eef6}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);background:#fff;border-top:1px solid #dfe8f1;padding:9px 20px;display:flex;justify-content:space-around}.bottom button{border:0;background:none;color:#6d7d91;font-weight:800;font-size:11px}</style></head><body>
-<div class="app"><header class="hero"><div class="brand"><img src="logo.png" alt="LCMC — Erdre et Loire"></div><h1>Mes heures</h1><div class="sub">Suivi de tes journées de prestation</div></header><main class="content">
-<section class="summary"><div class="stat"><div class="label">HEURES CE MOIS</div><div class="value" id="th">0h00</div></div><div class="stat"><div class="label">CA ESTIMÉ</div><div class="value green" id="ca">0 €</div></div><div class="stat wide"><div class="label">JOURS TRAVAILLÉS</div><div class="value" id="td">0</div></div></section>
-<div class="title"><h2>Mes exploitations</h2><span class="link" onclick="addFarm()">＋ Ajouter</span></div><div id="farms"></div><div class="title"><h2>Nouvelle journée</h2></div><button class="add" onclick="openM()">＋ Ajouter mes heures</button>
-<div class="title"><h2>Calendrier</h2><span class="link" onclick="today()">Aujourd’hui</span></div><section class="calendar"><div class="calhead"><button class="nav" onclick="chg(-1)">‹</button><strong id="cm"></strong><button class="nav" onclick="chg(1)">›</button></div><div class="week"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div class="days" id="days"></div></section>
-<div class="title"><h2>Dernières journées</h2><span class="link" onclick="openM()">Ajouter</span></div><div id="list"></div></main>
-<nav class="bottom"><button>⌂<br>Accueil</button><button onclick="document.querySelector('.calendar').scrollIntoView({behavior:'smooth'})">▦<br>Calendrier</button><button onclick="openM()">＋<br>Saisir</button><button onclick="csv()">↧<br>Exporter</button></nav></div>
-<div class="modal" id="modal"><div class="sheet"><div class="handle"></div><h2 id="mtitle">Ajouter mes heures</h2><div class="grid">
-<div><label>DATE</label><input id="d" type="date" onchange="loadDay()"></div><div class="full"><label>EXPLOITATION</label><select id="c"></select></div>
-<div class="status" id="status">Nouvelle journée — enregistre le matin, puis reviens compléter l’après-midi.</div>
-<div class="period">🌅 MATIN</div><div><label>DÉBUT</label><input id="sm" type="time"></div><div><label>FIN</label><input id="em" type="time"></div>
-<div class="period">☀️ APRÈS-MIDI</div><div><label>DÉBUT</label><input id="sa" type="time"></div><div><label>FIN</label><input id="ea" type="time"></div>
-<div><label>TARIF / HEURE</label><input id="r" type="number" value="25" min="0"></div><div></div>
-<div class="full"><label>TRAVAIL / NOTES</label><textarea id="n" placeholder="Traite, alimentation, mécanique..."></textarea></div></div>
-<div class="buttons"><button class="cancel" onclick="closeM()">Annuler</button><button class="save" onclick="save()">Enregistrer</button></div></div></div>
-<script>
-const K='lcmc_hours_v2',$=x=>document.getElementById(x);let a=JSON.parse(localStorage.getItem(K)||'[]'),v=new Date();v.setDate(1);
-function mins(x,y){if(!x||!y)return 0;let A=x.split(':').map(Number),B=y.split(':').map(Number),m=A[0]*60+A[1],M=B[0]*60+B[1];if(M<m)M+=1440;return M-m}
-function fm(n){return Math.floor(n/60)+'h'+String(n%60).padStart(2,'0')}function eur(n){return n.toLocaleString('fr-FR',{style:'currency',currency:'EUR'})}
-function openM(ds){$('modal').classList.add('show');$('d').value=ds||new Date().toISOString().slice(0,10);loadDay()}
-function loadDay(){let x=a.find(q=>q.date===$('d').value);$('mtitle').textContent=x?'Modifier ma journée':'Ajouter mes heures';$('c').value=x?.client||'';$('sm').value=x?.sm||'';$('em').value=x?.em||'';$('sa').value=x?.sa||'';$('ea').value=x?.ea||'';$('r').value=x?.rate??25;$('n').value=x?.notes||'';$('status').textContent=x?(x.sm&&x.em?(x.sa&&x.ea?'Journée complète — tout est enregistré.':'Matin enregistré — ajoute maintenant l’après-midi.'):(x.sa&&x.ea?'Après-midi enregistré — tu peux compléter le matin.':'Journée partiellement saisie.')):'Nouvelle journée — enregistre le matin, puis reviens compléter l’après-midi.'}
-function closeM(){$('modal').classList.remove('show')}
-function save(){let d=$('d').value,sm=$('sm').value,em=$('em').value,sa=$('sa').value,ea=$('ea').value;if(!d||(!sm&&!sa))return alert('Indique au moins une période.');if((sm&&!em)||(!sm&&em)||(sa&&!ea)||(!sa&&ea))return alert('Complète les horaires de la période.');let obj={date:d,client:$('c').value||'Client non renseigné',sm,em,sa,ea,rate:+$('r').value||25,notes:$('n').value,dur:mins(sm,em)+mins(sa,ea)},i=a.findIndex(x=>x.date===d);if(i>=0)a[i]=obj;else a.push(obj);localStorage.setItem(K,JSON.stringify(a));v=new Date(d+'T00:00:00');v.setDate(1);closeM();render()}
-function chg(n){v.setMonth(v.getMonth()+n);render()}function today(){let d=new Date();v=new Date(d.getFullYear(),d.getMonth(),1);render()}
-function render(){let y=v.getFullYear(),m=v.getMonth(),z=a.filter(x=>{let d=new Date(x.date+'T00:00:00');return d.getFullYear()==y&&d.getMonth()==m}).sort((x,y)=>y.date.localeCompare(x.date));$('cm').textContent=v.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});let t=z.reduce((q,x)=>q+x.dur,0),q=z.reduce((q,x)=>q+x.dur/60*x.rate,0);$('th').textContent=fm(t);$('ca').textContent=eur(q);$('td').textContent=new Set(z.map(x=>x.date)).size;let f=new Date(y,m,1),off=(f.getDay()+6)%7,last=new Date(y,m+1,0).getDate(),out='';for(let i=0;i<off;i++)out+='<button class="day muted"></button>';for(let d=1;d<=last;d++){let ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,has=a.some(x=>x.date===ds),ist=new Date().toDateString()===new Date(ds+'T00:00:00').toDateString();out+=`<button class="day ${has?'has ':''}${ist?'today':''}" onclick="openM('${ds}')">${d}</button>`}$('days').innerHTML=out;$('list').innerHTML=z.length?z.slice(0,8).map(x=>{let d=new Date(x.date+'T00:00:00'),slots=[x.sm&&x.em?'🌅 '+x.sm+' → '+x.em:'',x.sa&&x.ea?'☀️ '+x.sa+' → '+x.ea:''].filter(Boolean).join(' · ');return `<div class="entry"><div class="datebox"><b>${d.getDate()}</b><small>${d.toLocaleDateString('fr-FR',{weekday:'short'})}</small></div><div class="entrymain"><strong>${x.client}</strong><small>${slots||'Horaires incomplets'}</small></div><div class="hours">${fm(x.dur)}<small style="display:block;font-size:10px;color:#8798aa">${eur(x.dur/60*x.rate)}</small></div><button class="edit" onclick="openM('${x.date}')">✎</button></div>`}).join(''):'<div class="empty">Aucune journée saisie ce mois-ci.<br>Appuie sur « Ajouter mes heures ».</div>'}
-function csv(){let rows=[['Date','Client','Matin début','Matin fin','Après-midi début','Après-midi fin','Heures','Tarif','CA','Notes'],...a.map(x=>[x.date,x.client,x.sm,x.em,x.sa,x.ea,(x.dur/60).toFixed(2),x.rate,(x.dur/60*x.rate).toFixed(2),x.notes])],s=rows.map(r=>r.map(x=>`"${String(x).replaceAll('"','""')}"`).join(';')).join('\n'),u=URL.createObjectURL(new Blob(['\ufeff'+s],{type:'text/csv'})),l=document.createElement('a');l.href=u;l.download='mes-heures-LCMC.csv';l.click()}render();
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b5cab">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<title>Mes heures LCMC</title>
+<style>
+:root{--blue:#0b5cab;--blue2:#147bd1;--ink:#17324d;--muted:#70849a;--bg:#eef5fb;--card:#fff;--line:#dce7f0;--accent:#f2c94c;--danger:#d83a3a;--green:#2f8f5b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}.app{max-width:520px;margin:auto;min-height:100vh;background:#f7fbff;padding-bottom:82px}
+.hero{background:linear-gradient(145deg,#08458e,#1682d8);color:#fff;padding:14px 16px 20px;border-radius:0 0 28px 28px;box-shadow:0 8px 24px #08458e25}.brand{height:62px;background:#fff;border-radius:15px;padding:4px 10px;display:flex;align-items:center;justify-content:center}.brand img{width:100%;height:100%;object-fit:contain}.heroRow{display:flex;justify-content:space-between;align-items:end;margin-top:13px}.hero h1{font-size:27px;margin:0 0 2px}.sub{font-size:13px;opacity:.86}.monthPill{background:#ffffff22;border:1px solid #ffffff40;padding:8px 11px;border-radius:12px;font-size:12px;font-weight:800}
+.content{padding:15px 15px 20px}.view{display:none}.view.active{display:block}
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:var(--card);border:1px solid #e1eaf2;border-radius:18px;padding:14px;box-shadow:0 5px 16px #17324d0b}.wide{grid-column:1/-1}.label{font-size:10px;color:var(--muted);font-weight:900;letter-spacing:.3px}.value{font-size:25px;font-weight:950;margin-top:4px}.blue{color:var(--blue)}.green{color:var(--green)}
+.sectionHead{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 9px}.sectionHead h2{font-size:18px;margin:0}.smallBtn{border:0;background:#e8f2fd;color:var(--blue);font-weight:900;border-radius:11px;padding:8px 10px}
+.primary{width:100%;border:0;background:var(--blue);color:#fff;border-radius:15px;padding:15px;font-weight:950;font-size:16px;box-shadow:0 7px 16px #0b5cab25}.secondary{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:14px;padding:12px;font-weight:850}
+.farmCard{background:#fff;border:1px solid var(--line);border-radius:17px;padding:12px;margin-bottom:9px}.farmTop{display:flex;gap:10px;align-items:center}.farmDot{width:38px;height:38px;border-radius:12px;background:#eaf4ff;display:grid;place-items:center;font-size:20px}.farmMain{flex:1;min-width:0}.farmName{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.farmStats{font-size:12px;color:var(--muted);margin-top:3px}.farmActions{display:flex;gap:6px}.iconBtn{border:0;background:#eef5fb;border-radius:9px;padding:8px 9px;font-weight:900}.danger{color:var(--danger);background:#fff0f0}
+.calendar{background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px}.calhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.nav{border:0;background:#eaf3ff;color:var(--blue);width:36px;height:36px;border-radius:10px;font-size:20px}.week,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:4px}.week span{font-size:10px;color:#8293a4;font-weight:900}.day{min-height:40px;border:0;background:#fff;border-radius:10px;font-weight:750;color:var(--ink);position:relative}.day.muted{color:#c2ccd5}.day.has:after{content:"";position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:5px;height:5px;background:var(--blue);border-radius:50%}.day.today{outline:2px solid var(--accent)}
+.entry{background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px;margin-bottom:8px;display:flex;gap:9px;align-items:center}.datebox{width:47px;height:51px;background:#eaf3ff;border-radius:12px;display:grid;place-items:center}.datebox b{font-size:19px}.datebox small{font-size:9px;text-transform:uppercase;color:#6d7d91}.entrymain{flex:1;min-width:0}.entrymain strong{font-size:13px}.entrymain small{display:block;color:#6d7d91;margin-top:4px;font-size:11px}.hours{font-weight:950;color:var(--blue);text-align:right}.hours small{display:block;font-size:10px;color:#8798aa}.edit{border:0;background:#eaf3ff;color:var(--blue);border-radius:9px;padding:8px}.empty{text-align:center;color:#7d8ea0;background:#fff;border:1px dashed #cfdce8;border-radius:17px;padding:21px;font-size:13px}
+.modal{position:fixed;inset:0;background:#10233788;display:none;align-items:flex-end;z-index:20}.modal.show{display:flex}.sheet{background:#f7fbff;width:100%;max-width:520px;margin:auto;border-radius:26px 26px 0 0;padding:18px 16px 28px;max-height:92vh;overflow:auto}.handle{width:45px;height:5px;background:#c9d5df;border-radius:9px;margin:0 auto 14px}.sheet h2{margin:0 0 14px;font-size:21px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}label{font-size:10px;font-weight:950;color:#62768b;display:block;margin-bottom:5px}input,select,textarea{width:100%;border:1px solid #d5e2ed;background:#fff;border-radius:12px;padding:12px;font:inherit;color:var(--ink)}select{appearance:auto}textarea{min-height:65px;resize:vertical}.full,.period,.status{grid-column:1/-1}.period{background:#e8f3ff;color:var(--blue);border-radius:13px;padding:10px 12px;font-weight:950;font-size:13px}.status{background:#fff;border:1px solid var(--line);border-radius:13px;padding:10px 11px;font-size:12px;color:#5e7286}.buttons{display:flex;gap:8px;margin-top:13px}.buttons button{flex:1;border:0;border-radius:13px;padding:13px;font-weight:950}.save{background:var(--blue);color:#fff}.cancel{background:#e6edf4;color:var(--ink)}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:#fff;border-top:1px solid #dce6ee;padding:7px 7px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,1fr);z-index:10;box-shadow:0 -5px 18px #17324d0b}.bottom button{border:0;background:none;color:#71849a;font-weight:850;font-size:10px;padding:6px 2px;border-radius:11px}.bottom button.active{background:#eaf3ff;color:var(--blue)}.bottom .ico{font-size:20px;line-height:19px}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#17324d;color:#fff;padding:11px 14px;border-radius:12px;font-size:12px;font-weight:800;display:none;z-index:30;max-width:90%;text-align:center}.toast.show{display:block}
+@media(max-width:360px){.value{font-size:22px}.hero h1{font-size:24px}.content{padding-left:11px;padding-right:11px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero">
+  <div class="brand"><img src="logo.png" alt="LCMC — Erdre et Loire"></div>
+  <div class="heroRow"><div><h1>Mes heures</h1><div class="sub">Simple • Pratique • Efficace</div></div><div class="monthPill" id="monthPill"></div></div>
+</header>
 
-let farms=JSON.parse(localStorage.getItem('lcmc_farms')||'[]');
-function addFarm(){let n=prompt('Nom de l’exploitation :');if(!n)return;farms.push({id:Date.now().toString(),name:n.trim()});localStorage.setItem('lcmc_farms',JSON.stringify(farms));render()}
-function farmName(id){return (farms.find(f=>f.id===id)||{}).name||'Exploitation non renseignée'}
-function farmUI(){ $('farmCount').textContent=new Set(a.map(x=>x.farmId).filter(Boolean)).size; let box=$('farms'); if(!farms.length){box.innerHTML='<div class="empty">Aucune exploitation. Appuie sur ＋ Ajouter.</div>'}else{box.innerHTML=farms.map(f=>{let z=a.filter(x=>x.farmId===f.id),m=z.reduce((q,x)=>q+x.dur,0),ca=z.reduce((q,x)=>q+x.dur/60*x.rate,0);return `<div class="stat" style="margin-bottom:10px"><b>🏠 ${f.name}</b><div style="display:flex;justify-content:space-between;margin-top:7px"><span>${fm(m)}</span><strong class="green">${eur(ca)}</strong></div></div>`}).join('')}}
-function farmSelect(selected){$('c').innerHTML=farms.map(f=>`<option value="${f.id}">${f.name}</option>`).join('');if(selected)$('c').value=selected}
-const oldOpenM=openM;
-openM=function(ds){if(!farms.length){alert('Ajoute d’abord une exploitation.');addFarm();if(!farms.length)return}oldOpenM(ds);let x=a.find(q=>q.date===$('d').value);farmSelect(x?.farmId)}
-const oldSave=save;
-save=function(){let f=$('c').value;if(!f){alert('Choisis une exploitation.');return}let old=$('c').value;oldSave();let x=a.find(q=>q.date===$('d').value);if(x){x.farmId=old;localStorage.setItem(K,JSON.stringify(a));render()}};
-const oldRender=render;
-render=function(){oldRender();farmUI();let list=$('list'); if(list) list.innerHTML=list.innerHTML.replaceAll('Client non renseigné', 'Exploitation');}
-</script></body></html>
+<main class="content">
+<section id="home" class="view active">
+  <div class="summary">
+    <div class="stat"><div class="label">HEURES CE MOIS</div><div class="value blue" id="th">0h00</div></div>
+    <div class="stat"><div class="label">CA CE MOIS</div><div class="value green" id="ca">0 €</div></div>
+    <div class="stat wide"><div class="label">JOURS TRAVAILLÉS</div><div class="value" id="td">0</div></div>
+  </div>
+  <div class="sectionHead"><h2>Par exploitation</h2><button class="smallBtn" onclick="showView('farms')">Voir tout</button></div>
+  <div id="homeFarms"></div>
+  <button class="primary" onclick="openEntry()">＋ Saisir mes heures</button>
+  <div class="sectionHead"><h2>Dernières journées</h2><button class="smallBtn" onclick="showView('calendar')">Calendrier</button></div>
+  <div id="homeList"></div>
+</section>
+
+<section id="farms" class="view">
+  <div class="sectionHead"><h2>Mes exploitations</h2><button class="smallBtn" onclick="openFarm()">＋ Ajouter</button></div>
+  <div id="farmList"></div>
+  <button class="primary" onclick="openFarm()">＋ Ajouter une exploitation</button>
+</section>
+
+<section id="calendar" class="view">
+  <div class="sectionHead"><h2>Calendrier</h2><button class="smallBtn" onclick="goToday()">Aujourd’hui</button></div>
+  <section class="calendar">
+    <div class="calhead"><button class="nav" onclick="changeMonth(-1)">‹</button><strong id="calMonth"></strong><button class="nav" onclick="changeMonth(1)">›</button></div>
+    <div class="week"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div>
+    <div class="days" id="days"></div>
+  </section>
+  <div class="sectionHead"><h2>Journées du mois</h2></div>
+  <div id="monthList"></div>
+</section>
+</main>
+
+<nav class="bottom">
+  <button id="nav-home" class="active" onclick="showView('home')"><div class="ico">⌂</div>Accueil</button>
+  <button id="nav-farms" onclick="showView('farms')"><div class="ico">⌂</div>Exploitations</button>
+  <button id="nav-calendar" onclick="showView('calendar')"><div class="ico">▦</div>Calendrier</button>
+  <button onclick="exportCSV()"><div class="ico">↧</div>Exporter</button>
+</nav>
+
+<div class="modal" id="entryModal"><div class="sheet">
+  <div class="handle"></div><h2 id="entryTitle">Saisir mes heures</h2>
+  <div class="grid">
+    <div><label>DATE</label><input id="date" type="date" onchange="loadEntry()"></div>
+    <div></div>
+    <div class="full"><label>EXPLOITATION</label><select id="farmSelect"></select></div>
+    <div class="status" id="entryStatus"></div>
+    <div class="period">🌅 MATIN</div>
+    <div><label>DÉBUT</label><input id="sm" type="time"></div><div><label>FIN</label><input id="em" type="time"></div>
+    <div class="period">☀️ APRÈS-MIDI</div>
+    <div><label>DÉBUT</label><input id="sa" type="time"></div><div><label>FIN</label><input id="ea" type="time"></div>
+    <div><label>TARIF / HEURE (€)</label><input id="rate" type="number" value="25" min="0" step="0.5"></div><div></div>
+    <div class="full"><label>NOTES (OPTIONNEL)</label><textarea id="notes" placeholder="Traite, soins, mécanique..."></textarea></div>
+  </div>
+  <div class="buttons"><button class="cancel" onclick="closeModal('entryModal')">Annuler</button><button class="save" onclick="saveEntry()">Enregistrer</button></div>
+</div></div>
+
+<div class="modal" id="farmModal"><div class="sheet">
+  <div class="handle"></div><h2 id="farmTitle">Ajouter une exploitation</h2>
+  <label>NOM DE L’EXPLOITATION</label><input id="farmNameInput" placeholder="Ex. GAEC des Champs">
+  <div class="buttons"><button class="cancel" onclick="closeModal('farmModal')">Annuler</button><button class="save" onclick="saveFarm()">Enregistrer</button></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const HOURS_KEY='lcmc_hours_v3';
+const FARMS_KEY='lcmc_farms';
+const $=id=>document.getElementById(id);
+let entries=JSON.parse(localStorage.getItem(HOURS_KEY)||'[]');
+let farms=JSON.parse(localStorage.getItem(FARMS_KEY)||'[]');
+let viewDate=new Date(); viewDate.setDate(1);
+let editingFarmId=null;
+
+function mins(a,b){if(!a||!b)return 0;const A=a.split(':').map(Number),B=b.split(':').map(Number);let x=A[0]*60+A[1],y=B[0]*60+B[1];if(y<x)y+=1440;return y-x}
+function fmt(m){m=Math.max(0,Math.round(m||0));return Math.floor(m/60)+'h'+String(m%60).padStart(2,'0')}
+function money(n){return Number(n||0).toLocaleString('fr-FR',{style:'currency',currency:'EUR'})}
+function dateStr(d){return d.toISOString().slice(0,10)}
+function parseDate(s){return new Date(s+'T00:00:00')}
+function saveAll(){localStorage.setItem(HOURS_KEY,JSON.stringify(entries));localStorage.setItem(FARMS_KEY,JSON.stringify(farms))}
+function farmName(id){const f=farms.find(x=>x.id===id);return f?f.name:'Exploitation non renseignée'}
+function currentMonthEntries(){const y=viewDate.getFullYear(),m=viewDate.getMonth();return entries.filter(x=>{const d=parseDate(x.date);return d.getFullYear()===y&&d.getMonth()===m}).sort((a,b)=>b.date.localeCompare(a.date))}
+function showView(name){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  $(name).classList.add('active');
+  document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));
+  const nav=$('nav-'+name); if(nav)nav.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  render();
+}
+function openModal(id){$(id).classList.add('show')}
+function closeModal(id){$(id).classList.remove('show')}
+function openEntry(ds){
+  populateFarmSelect();
+  $('date').value=ds||dateStr(new Date());
+  openModal('entryModal'); loadEntry();
+}
+function populateFarmSelect(selected=''){
+  $('farmSelect').innerHTML=farms.length
+    ? farms.map(f=>`<option value="${f.id}">${escapeHtml(f.name)}</option>`).join('')
+    : '<option value="">Aucune exploitation — ajoute-en une</option>';
+  if(selected) $('farmSelect').value=selected;
+}
+function loadEntry(){
+  const x=entries.find(q=>q.date===$('date').value);
+  $('entryTitle').textContent=x?'Modifier ma journée':'Saisir mes heures';
+  $('sm').value=x?.sm||'';$('em').value=x?.em||'';$('sa').value=x?.sa||'';$('ea').value=x?.ea||'';
+  $('rate').value=x?.rate??25;$('notes').value=x?.notes||'';
+  populateFarmSelect(x?.farmId||'');
+  if(!farms.length)$('entryStatus').textContent='Ajoute d’abord une exploitation dans « Exploitations ».';
+  else $('entryStatus').textContent=x?(x.sm&&x.em?(x.sa&&x.ea?'Journée complète — tu peux encore la modifier.':'Matin enregistré — ajoute l’après-midi.'):(x.sa&&x.ea?'Après-midi enregistré — complète le matin.':'Journée partiellement saisie.')):'Enregistre le matin maintenant, puis rouvre cette même date pour ajouter l’après-midi.';
+}
+function saveEntry(){
+  const date=$('date').value,sm=$('sm').value,em=$('em').value,sa=$('sa').value,ea=$('ea').value;
+  if(!date)return alert('Choisis une date.');
+  if(!farms.length)return alert('Ajoute d’abord une exploitation.');
+  if(!sm&&!sa)return alert('Indique au moins une période.');
+  if((sm&&!em)||(!sm&&em)||(sa&&!ea)||(!sa&&ea))return alert('Complète les horaires de la période.');
+  const obj={date,farmId:$('farmSelect').value,client:farmName($('farmSelect').value),sm,em,sa,ea,rate:+$('rate').value||25,notes:$('notes').value.trim()};
+  obj.dur=mins(sm,em)+mins(sa,ea);
+  const i=entries.findIndex(x=>x.date===date);
+  if(i>=0)entries[i]=obj;else entries.push(obj);
+  saveAll();viewDate=new Date(date+'T00:00:00');viewDate.setDate(1);closeModal('entryModal');toast('Journée enregistrée ✓');render();
+}
+function openFarm(id){
+  editingFarmId=id||null;
+  $('farmTitle').textContent=id?'Modifier l’exploitation':'Ajouter une exploitation';
+  $('farmNameInput').value=id?(farms.find(f=>f.id===id)?.name||''):'';
+  openModal('farmModal');setTimeout(()=>$('farmNameInput').focus(),100);
+}
+function saveFarm(){
+  const name=$('farmNameInput').value.trim();
+  if(!name)return alert('Indique le nom de l’exploitation.');
+  if(editingFarmId){const f=farms.find(x=>x.id===editingFarmId);if(f)f.name=name;entries.forEach(x=>{if(x.farmId===editingFarmId)x.client=name})}
+  else farms.push({id:'farm_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),name});
+  saveAll();closeModal('farmModal');toast(editingFarmId?'Exploitation modifiée ✓':'Exploitation ajoutée ✓');render();
+}
+function deleteFarm(id){
+  const f=farms.find(x=>x.id===id);if(!f)return;
+  const used=entries.some(x=>x.farmId===id);
+  const msg=used?`« ${f.name} » contient des journées. Supprimer l’exploitation ne supprimera pas les journées, mais elles resteront sans exploitation. Continuer ?`:`Supprimer « ${f.name} » ?`;
+  if(!confirm(msg))return;
+  farms=farms.filter(x=>x.id!==id);
+  entries.forEach(x=>{if(x.farmId===id){x.farmId='';x.client='Exploitation supprimée'}});
+  saveAll();toast('Exploitation supprimée');render();
+}
+function changeMonth(n){viewDate.setMonth(viewDate.getMonth()+n);render()}
+function goToday(){const d=new Date();viewDate=new Date(d.getFullYear(),d.getMonth(),1);render()}
+function farmStats(id,arr=entries){const z=arr.filter(x=>x.farmId===id);return {mins:z.reduce((q,x)=>q+x.dur,0),ca:z.reduce((q,x)=>q+x.dur/60*x.rate,0),days:new Set(z.map(x=>x.date)).size}}
+function renderFarmCards(target,limit){
+  const arr=currentMonthEntries();
+  const html=farms.map((f)=>{
+    const s=farmStats(f.id,arr);
+    return `<div class="farmCard"><div class="farmTop"><div class="farmDot">🌱</div><div class="farmMain"><div class="farmName">${escapeHtml(f.name)}</div><div class="farmStats">${fmt(s.mins)} • ${money(s.ca)} • ${s.days} jour${s.days>1?'s':''}</div></div><div class="farmActions"><button class="iconBtn" onclick="openFarm('${f.id}')">✎</button><button class="iconBtn danger" onclick="deleteFarm('${f.id}')">🗑</button></div></div></div>`;
+  }).slice(0,limit||999).join('');
+  $(target).innerHTML=farms.length?html:'<div class="empty">Aucune exploitation enregistrée.<br><br>Ajoute tes exploitations ici, elles seront ensuite disponibles lors de la saisie des heures.</div>';
+}
+function entryHtml(x){
+  const d=parseDate(x.date),slots=[x.sm&&x.em?'🌅 '+x.sm+' → '+x.em:'',x.sa&&x.ea?'☀️ '+x.sa+' → '+x.ea:''].filter(Boolean).join(' · ');
+  return `<div class="entry"><div class="datebox"><b>${d.getDate()}</b><small>${d.toLocaleDateString('fr-FR',{weekday:'short'})}</small></div><div class="entrymain"><strong>${escapeHtml(farmName(x.farmId)||x.client||'Exploitation non renseignée')}</strong><small>${slots||'Horaires incomplets'}</small></div><div class="hours">${fmt(x.dur)}<small>${money(x.dur/60*x.rate)}</small></div><button class="edit" onclick="openEntry('${x.date}')">✎</button></div>`;
+}
+function render(){
+  const arr=currentMonthEntries(),total=arr.reduce((q,x)=>q+x.dur,0),ca=arr.reduce((q,x)=>q+x.dur/60*x.rate,0);
+  $('th').textContent=fmt(total);$('ca').textContent=money(ca);$('td').textContent=new Set(arr.map(x=>x.date)).size;
+  $('monthPill').textContent=viewDate.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  renderFarmCards('homeFarms',4);renderFarmCards('farmList');
+  $('homeList').innerHTML=arr.length?arr.slice(0,5).map(entryHtml).join(''):'<div class="empty">Aucune journée saisie ce mois-ci.<br><br>Appuie sur « Saisir mes heures » pour commencer.</div>';
+  $('monthList').innerHTML=arr.length?arr.map(entryHtml).join(''):'<div class="empty">Aucune journée ce mois-ci.</div>';
+  renderCalendar();
+}
+function renderCalendar(){
+  const y=viewDate.getFullYear(),m=viewDate.getMonth(),first=new Date(y,m,1),off=(first.getDay()+6)%7,last=new Date(y,m+1,0).getDate();
+  $('calMonth').textContent=viewDate.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  let out='';for(let i=0;i<off;i++)out+='<button class="day muted" aria-hidden="true"></button>';
+  for(let d=1;d<=last;d++){const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,has=entries.some(x=>x.date===ds),today=new Date().toDateString()===parseDate(ds).toDateString();out+=`<button class="day ${has?'has ':''}${today?'today':''}" onclick="openEntry('${ds}')">${d}</button>`}
+  $('days').innerHTML=out;
+}
+function exportCSV(){
+  const rows=[['Date','Exploitation','Matin début','Matin fin','Après-midi début','Après-midi fin','Heures','Tarif','CA','Notes'],...entries.map(x=>[x.date,farmName(x.farmId)||x.client||'',x.sm,x.em,x.sa,x.ea,(x.dur/60).toFixed(2),x.rate,(x.dur/60*x.rate).toFixed(2),x.notes||''])];
+  const csv=rows.map(r=>r.map(x=>`"${String(x).replaceAll('"','""')}"`).join(';')).join('\n');
+  const u=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=u;a.download='mes-heures-LCMC.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
+}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(window._toast);window._toast=setTimeout(()=>$('toast').classList.remove('show'),2200)}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('show')}));
+render();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body>
+</html>
