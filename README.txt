@@ -1,13 +1,17 @@
-LCMC v6 — interface style ferme / paille & bleu
+# LCMC v8 — Premium agricole
+Version mobile/PWA de suivi des heures, exploitations, calendrier et CA.
 
-- En-tête plein écran inspiré de la maquette : vache + poulet à gauche, tracteur à droite.
-- Logo LCMC avec fond transparent : aucun rectangle blanc derrière le logo.
-- Accueil avec « Bonjour Romain ».
-- Saisie des heures du matin puis de l’après-midi, avec modification possible.
-- Liste des exploitations séparée, ajout et suppression.
-- Totaux heures et CA par exploitation et pour le mois.
-- PWA installable sur Android via GitHub Pages.
-- Service worker v6 pour forcer le renouvellement du cache.
+## Installation GitHub Pages
+1. Mettre **tous les fichiers de ce dossier à la racine** du dépôt.
+2. GitHub → Settings → Pages → Deploy from branch → `main` → `/ (root)`.
+3. Ouvrir l'URL GitHub Pages dans le navigateur avant d'utiliser l'icône installée.
+4. Si une ancienne version apparaît, supprimer l'ancienne PWA du téléphone puis ouvrir l'URL Pages et réinstaller.
 
-Installation GitHub Pages : envoyer tous les fichiers contenus dans ce dossier à la racine du dépôt.
-Ne pas envoyer uniquement le fichier ZIP.
+## Contenu
+- index.html
+- sw.js
+- manifest.json
+- logo-lcmc.svg
+- header-bg-v8.svg
+- icon-192.svg
+- icon-512.svg
