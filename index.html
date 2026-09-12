@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#075da7">
+  <meta name="description" content="LCMC — suivi d'heures, exploitations, finances et facturation agricole">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon-192.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>LCMC — Le Coup de Main Du Coin</title>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="hero" aria-label="LCMC Erdre et Loire">
+    <img class="hero-logo" src="assets/lcmc-logo.png" alt="LCMC Erdre et Loire">
+    <div class="hero-shade"></div>
+  </header>
+
+  <main class="content">
+    <section class="view active" data-view="home">
+      <div class="month-row">
+        <button class="round-btn" data-action="prev-month" aria-label="Mois précédent">‹</button>
+        <button class="month-chip" data-action="today-month" id="homeMonthChip">septembre 2026</button>
+        <button class="round-btn" data-action="next-month" aria-label="Mois suivant">›</button>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card blue"><span class="stat-icon">◷</span><div><span>Heures</span><small>ce mois</small></div><strong id="statHours">0h00</strong><em id="trendHours">Nouveau mois</em></article>
+        <article class="stat-card green"><span class="stat-icon">€</span><div><span>CA</span><small>ce mois</small></div><strong id="statCA">0,00 €</strong><em id="trendCA">Nouveau mois</em></article>
+        <article class="stat-card gold"><span class="stat-icon">▦</span><div><span>Jours travaillés</span><small>ce mois</small></div><strong id="statDays">0</strong><em>sur le mois</em></article>
+        <article class="stat-card cyan"><span class="stat-icon">↗</span><div><span>Moyenne / jour</span><small>ce mois</small></div><strong id="statAvg">0h00</strong><em>heures / journée</em></article>
+      </div>
+
+      <article class="profit-card" data-action="goto-finance">
+        <div><span>RÉSULTAT ESTIMÉ DU MOIS</span><strong id="homeProfit">0,00 €</strong></div><span class="profit-arrow">↗</span>
+        <div class="profit-breakdown"><span><b id="homeCA">0,00 €</b><small>CA</small></span><span><b id="homeExpenses">0,00 €</b><small>Dépenses</small></span><span><b id="homeSocial">0,00 €</b><small>Cotisations</small></span></div>
+      </article>
+
+      <section class="section">
+        <div class="section-head"><h2>📅 Calendrier</h2><button class="link-btn" data-action="goto-hours">Voir tout</button></div>
+        <div class="panel calendar-panel"><div class="week-row"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span></div><div class="calendar-grid" id="homeCalendar"></div></div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h2>Dernières journées</h2><button class="link-btn" data-action="goto-hours">Historique</button></div>
+        <div class="stack" id="homeEntries"></div>
+        <button class="primary-btn" data-action="add-entry">＋ Saisir mes heures</button>
+      </section>
+    </section>
+
+    <section class="view" data-view="farms">
+      <div class="page-title"><div><span>EXPLOITATIONS</span><h1>Mes fermes</h1></div><button class="square-add" data-action="add-farm">＋</button></div>
+      <div class="stack" id="farmList"></div>
+    </section>
+
+    <section class="view" data-view="hours">
+      <div class="page-title"><div><span>HEURES</span><h1>Mon activité</h1></div><button class="square-add" data-action="add-entry">＋</button></div>
+      <div class="filter-row"><input id="historySearch" type="search" placeholder="Rechercher une exploitation…"><select id="historyFarm"><option value="">Toutes les exploitations</option></select></div>
+      <div class="panel calendar-panel full-calendar"><div class="month-row compact"><button class="round-btn" data-action="prev-month">‹</button><strong id="hoursMonthLabel"></strong><button class="round-btn" data-action="next-month">›</button></div><div class="week-row"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span></div><div class="calendar-grid" id="hoursCalendar"></div></div>
+      <div class="stack section" id="historyList"></div>
+    </section>
+
+    <section class="view" data-view="finance">
+      <div class="page-title"><div><span>PILOTAGE</span><h1>Mes finances</h1></div><button class="square-add" data-action="add-expense">＋</button></div>
+      <div class="finance-hero"><small id="financeMonthLabel"></small><strong id="finProfit">0,00 €</strong><span>résultat estimé</span></div>
+      <div class="mini-grid"><article><span>CA</span><b id="finCA">0,00 €</b></article><article><span>Dépenses</span><b id="finExpenses">0,00 €</b></article><article><span>Cotisations</span><b id="finSocial">0,00 €</b></article><article><span>CA / h</span><b id="finRate">0,00 €</b></article></div>
+      <section class="section"><div class="section-head"><h2>🎯 Objectif mensuel</h2><button class="link-btn" data-action="set-goal">Modifier</button></div><div class="panel"><div class="goal-row"><b id="goalText">0 / 0 €</b><span id="goalPct">0%</span></div><div class="goal-track"><i id="goalBar"></i></div></div></section>
+      <section class="section"><div class="section-head"><h2>📈 6 derniers mois</h2></div><div class="panel"><canvas id="financeChart" height="180"></canvas></div></section>
+      <section class="section"><div class="section-head"><h2>💳 Dépenses</h2><button class="link-btn" data-action="add-expense">Ajouter</button></div><div class="stack" id="expenseList"></div></section>
+      <section class="section"><div class="section-head"><h2>🧾 Factures</h2><button class="link-btn" data-action="add-invoice">Créer</button></div><div class="stack" id="invoiceList"></div></section>
+    </section>
+
+    <section class="view" data-view="profile">
+      <div class="page-title"><div><span>RÉGLAGES</span><h1>Mon profil</h1></div></div>
+      <section class="panel settings-card"><h2>Tarifs & charges</h2><label>Tarif horaire par défaut (€)<input id="defaultRate" inputmode="decimal" type="number" step="0.01"></label><label>Cotisations estimées (%)<input id="contributionRate" inputmode="decimal" type="number" step="0.1"></label><label>Objectif de CA mensuel (€)<input id="monthlyGoal" inputmode="decimal" type="number" step="1"></label><button class="primary-btn" data-action="save-settings">Enregistrer</button></section>
+      <section class="panel settings-card section"><h2>Mon entreprise</h2><label>Nom commercial<input id="businessName"></label><label>SIRET<input id="businessSiret" inputmode="numeric"></label><label>Téléphone<input id="businessPhone" inputmode="tel"></label><label>Adresse<textarea id="businessAddress" rows="3"></textarea></label><button class="primary-btn" data-action="save-business">Enregistrer</button></section>
+      <section class="panel settings-card section"><h2>Sauvegarde & exports</h2><div class="settings-actions"><button data-action="export-backup">Sauvegarder mes données</button><label class="file-button">Restaurer une sauvegarde<input id="backupInput" type="file" accept="application/json"></label><button data-action="export-hours">Exporter les heures CSV</button><button data-action="export-finance">Exporter les finances CSV</button></div></section>
+      <p class="version">LCMC v10 — reconstruction propre</p>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navigation principale">
+    <button class="active" data-nav="home"><span>⌂</span>Accueil</button>
+    <button data-nav="farms"><span>♙</span>Exploitations</button>
+    <button class="plus-nav" data-action="add-entry" aria-label="Ajouter une journée">＋</button>
+    <button data-nav="finance"><span>€</span>Finances</button>
+    <button data-nav="profile"><span>♙</span>Profil</button>
+  </nav>
+
+  <div class="modal" id="entryModal" aria-hidden="true"><div class="sheet"><div class="handle"></div><div class="sheet-title"><h2 id="entryTitle">Saisir mes heures</h2><button data-close="entryModal">×</button></div><label>Date<input id="entryDate" type="date"></label><label>Exploitation<select id="entryFarm"></select></label><div class="form-grid"><label>Matin — début<input id="morningStart" type="time"></label><label>Matin — fin<input id="morningEnd" type="time"></label><label>Après-midi — début<input id="afternoonStart" type="time"></label><label>Après-midi — fin<input id="afternoonEnd" type="time"></label></div><label>Tarif horaire (€)<input id="entryRate" type="number" step="0.01" inputmode="decimal"></label><label>Note<textarea id="entryNotes" rows="2" placeholder="Optionnel"></textarea></label><div class="live-total" id="entryLiveTotal">0h00 · 0,00 €</div><div class="sheet-actions"><button class="danger-btn hidden" id="deleteEntryBtn" data-action="delete-entry">Supprimer</button><button class="primary-btn" data-action="save-entry">Enregistrer</button></div></div></div>
+
+  <div class="modal" id="farmModal" aria-hidden="true"><div class="sheet"><div class="handle"></div><div class="sheet-title"><h2 id="farmTitle">Ajouter une exploitation</h2><button data-close="farmModal">×</button></div><label>Nom de l'exploitation<input id="farmNameInput" autocomplete="organization"></label><label>Tarif spécifique (€ / h)<input id="farmRateInput" type="number" step="0.01" inputmode="decimal" placeholder="Laisser vide = tarif par défaut"></label><label>Note<textarea id="farmNoteInput" rows="2"></textarea></label><div class="sheet-actions"><button class="danger-btn hidden" id="deleteFarmBtn" data-action="delete-farm">Supprimer</button><button class="primary-btn" data-action="save-farm">Enregistrer</button></div></div></div>
+
+  <div class="modal" id="expenseModal" aria-hidden="true"><div class="sheet"><div class="handle"></div><div class="sheet-title"><h2 id="expenseTitle">Ajouter une dépense</h2><button data-close="expenseModal">×</button></div><label>Date<input id="expenseDate" type="date"></label><label>Montant (€)<input id="expenseAmount" type="number" step="0.01" inputmode="decimal"></label><label>Catégorie<select id="expenseCategory"><option>Carburant</option><option>Assurance</option><option>Véhicule</option><option>Matériel</option><option>Logiciels</option><option>Comptabilité</option><option>Repas</option><option>Autre</option></select></label><label>Libellé<input id="expenseLabel"></label><label>Note<textarea id="expenseNote" rows="2"></textarea></label><div class="sheet-actions"><button class="danger-btn hidden" id="deleteExpenseBtn" data-action="delete-expense">Supprimer</button><button class="primary-btn" data-action="save-expense">Enregistrer</button></div></div></div>
+
+  <div class="modal" id="invoiceModal" aria-hidden="true"><div class="sheet"><div class="handle"></div><div class="sheet-title"><h2>Créer une facture</h2><button data-close="invoiceModal">×</button></div><label>Exploitation<select id="invoiceFarm"></select></label><div class="form-grid"><label>Du<input id="invoiceStart" type="date"></label><label>Au<input id="invoiceEnd" type="date"></label></div><label>Date de facture<input id="invoiceDate" type="date"></label><label>Statut<select id="invoiceStatus"><option value="draft">Brouillon</option><option value="sent">Envoyée</option><option value="paid">Payée</option></select></label><label>Note<input id="invoiceNote" value="Prestation de service agricole"></label><div class="live-total" id="invoicePreview">Sélectionne une période.</div><button class="primary-btn" data-action="save-invoice">Créer la facture</button></div></div>
+
+  <div class="toast" id="toast" role="status"></div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
