@@ -1,14 +1,16 @@
-LCMC v8.2 — version premium
+LCMC v9.0 — Pilotage Pro
 
-Modifications:
-- Suppression complète de la rubrique « Bonjour Romain ».
-- Suppression du bloc de citation associé.
-- En-tête raccourci pour mieux voir la vache, le poulet et le tracteur sur téléphone.
-- Nouveau visuel d'en-tête recentré avec LCMC plus compact.
-- Conservation du suivi des heures, exploitations, calendrier, CA, export CSV et fonctionnement PWA hors ligne.
+Nouveautés :
+- Tableau de bord avec résultat estimé
+- Gestion des dépenses par catégorie
+- Estimation configurable des cotisations
+- Graphique CA / résultat sur 6 mois
+- Création et suivi de factures à partir des heures
+- Impression / enregistrement PDF des factures via le navigateur
+- Statuts de facture : brouillon, envoyée, payée
+- Export financier CSV
+- Sauvegarde JSON complète (heures, exploitations, dépenses, factures, réglages)
+- Profil entreprise pour les factures
 
-Installation GitHub Pages :
-1. Décompresser le ZIP.
-2. Mettre les fichiers à la racine du dépôt GitHub.
-3. Activer GitHub Pages sur la branche principale.
-4. Ouvrir l'URL GitHub Pages sur le téléphone.
+Déploiement : déposer tous les fichiers à la racine de GitHub Pages.
+Les données restent enregistrées localement dans le navigateur de l'appareil.

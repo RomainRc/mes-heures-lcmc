@@ -1,4 +1,4 @@
-const CACHE='lcmc-v8-1-20260910';
+const CACHE='lcmc-v9-0-20260912';
 const ASSETS=['./','./index.html','./manifest.json','./sw.js','./lcmc-hero.jpg','./icon-192.svg','./icon-512.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
