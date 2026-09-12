@@ -12,40 +12,69 @@
 </head>
 <body>
 <div class="app" id="app">
-  <header class="hero" aria-label="LCMC Erdre et Loire">
-    <img class="hero-logo" src="assets/lcmc-logo.png" alt="LCMC Erdre et Loire">
-    <div class="hero-shade"></div>
+  <header class="top-hero" aria-label="LCMC Erdre et Loire">
+    <div class="topbar">
+      <div class="brand-mini"><span class="brand-dot"></span><b>LCMC</b><small>Erdre et Loire</small></div>
+      <button class="top-action" data-action="add-entry" aria-label="Ajouter une journée">＋</button>
+    </div>
+    <div class="hero-brand">
+      <img src="assets/lcmc-logo.png" alt="LCMC Erdre et Loire">
+    </div>
   </header>
 
-  <main class="content">
+  <main class="content v11-content">
     <section class="view active" data-view="home">
-      <div class="month-row">
-        <button class="round-btn" data-action="prev-month" aria-label="Mois précédent">‹</button>
-        <button class="month-chip" data-action="today-month" id="homeMonthChip">septembre 2026</button>
-        <button class="round-btn" data-action="next-month" aria-label="Mois suivant">›</button>
-      </div>
-
-      <div class="stats-grid">
-        <article class="stat-card blue"><span class="stat-icon">◷</span><div><span>Heures</span><small>ce mois</small></div><strong id="statHours">0h00</strong><em id="trendHours">Nouveau mois</em></article>
-        <article class="stat-card green"><span class="stat-icon">€</span><div><span>CA</span><small>ce mois</small></div><strong id="statCA">0,00 €</strong><em id="trendCA">Nouveau mois</em></article>
-        <article class="stat-card gold"><span class="stat-icon">▦</span><div><span>Jours travaillés</span><small>ce mois</small></div><strong id="statDays">0</strong><em>sur le mois</em></article>
-        <article class="stat-card cyan"><span class="stat-icon">↗</span><div><span>Moyenne / jour</span><small>ce mois</small></div><strong id="statAvg">0h00</strong><em>heures / journée</em></article>
-      </div>
-
-      <article class="profit-card" data-action="goto-finance">
-        <div><span>RÉSULTAT ESTIMÉ DU MOIS</span><strong id="homeProfit">0,00 €</strong></div><span class="profit-arrow">↗</span>
-        <div class="profit-breakdown"><span><b id="homeCA">0,00 €</b><small>CA</small></span><span><b id="homeExpenses">0,00 €</b><small>Dépenses</small></span><span><b id="homeSocial">0,00 €</b><small>Cotisations</small></span></div>
-      </article>
-
-      <section class="section">
-        <div class="section-head"><h2>📅 Calendrier</h2><button class="link-btn" data-action="goto-hours">Voir tout</button></div>
-        <div class="panel calendar-panel"><div class="week-row"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span></div><div class="calendar-grid" id="homeCalendar"></div></div>
+      <section class="today-card">
+        <div>
+          <span class="eyebrow">AUJOURD’HUI</span>
+          <strong id="todayLabel">Samedi 12 septembre</strong>
+          <small>Prêt pour une nouvelle journée ?</small>
+        </div>
+        <button class="today-add" data-action="add-entry"><span>＋</span>Saisir mes heures</button>
       </section>
 
-      <section class="section">
-        <div class="section-head"><h2>Dernières journées</h2><button class="link-btn" data-action="goto-hours">Historique</button></div>
-        <div class="stack" id="homeEntries"></div>
-        <button class="primary-btn" data-action="add-entry">＋ Saisir mes heures</button>
+      <section class="month-dashboard">
+        <div class="month-dashboard-head">
+          <div><span class="eyebrow">PILOTAGE DU MOIS</span><h1 id="homeMonthChip" data-action="today-month">septembre 2026</h1></div>
+          <div class="month-controls"><button data-action="prev-month">‹</button><button data-action="next-month">›</button></div>
+        </div>
+
+        <div class="dashboard-main">
+          <article class="result-card" data-action="goto-finance">
+            <span>Résultat estimé</span>
+            <strong id="homeProfit">0,00 €</strong>
+            <div class="result-flow"><i></i><span>Voir mes finances →</span></div>
+          </article>
+          <article class="goal-card">
+            <span>Chiffre d’affaires</span>
+            <strong id="statCA">0,00 €</strong>
+            <small id="trendCA">Nouveau mois</small>
+          </article>
+        </div>
+
+        <div class="kpi-strip">
+          <article><span class="kpi-icon">◷</span><div><strong id="statHours">0h00</strong><small>heures</small></div><em id="trendHours">Nouveau mois</em></article>
+          <article><span class="kpi-icon">▦</span><div><strong id="statDays">0</strong><small>jours</small></div></article>
+          <article><span class="kpi-icon">↗</span><div><strong id="statAvg">0h00</strong><small>moyenne / jour</small></div></article>
+        </div>
+
+        <div class="finance-mini hidden-metrics" aria-hidden="true"><span id="homeCA">0,00 €</span><span id="homeExpenses">0,00 €</span><span id="homeSocial">0,00 €</span></div>
+      </section>
+
+      <section class="quick-actions">
+        <button data-action="goto-hours"><span>◫</span><b>Planning</b><small>Voir mes journées</small></button>
+        <button data-nav="farms"><span>⌂</span><b>Exploitations</b><small>Mes clients</small></button>
+        <button data-action="goto-finance"><span>€</span><b>Finances</b><small>Suivre mon résultat</small></button>
+      </section>
+
+      <section class="section calendar-section">
+        <div class="section-head"><div><span class="eyebrow">PLANNING</span><h2>Mon calendrier</h2></div><button class="text-action" data-action="goto-hours">Tout voir</button></div>
+        <div class="calendar-card"><div class="week-row"><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span></div><div class="calendar-grid" id="homeCalendar"></div></div>
+      </section>
+
+      <section class="section recent-section">
+        <div class="section-head"><div><span class="eyebrow">ACTIVITÉ</span><h2>Dernières journées</h2></div><button class="text-action" data-action="goto-hours">Historique</button></div>
+        <div class="stack modern-stack" id="homeEntries"></div>
       </section>
     </section>
 
@@ -76,13 +105,13 @@
       <section class="panel settings-card"><h2>Tarifs & charges</h2><label>Tarif horaire par défaut (€)<input id="defaultRate" inputmode="decimal" type="number" step="0.01"></label><label>Cotisations estimées (%)<input id="contributionRate" inputmode="decimal" type="number" step="0.1"></label><label>Objectif de CA mensuel (€)<input id="monthlyGoal" inputmode="decimal" type="number" step="1"></label><button class="primary-btn" data-action="save-settings">Enregistrer</button></section>
       <section class="panel settings-card section"><h2>Mon entreprise</h2><label>Nom commercial<input id="businessName"></label><label>SIRET<input id="businessSiret" inputmode="numeric"></label><label>Téléphone<input id="businessPhone" inputmode="tel"></label><label>Adresse<textarea id="businessAddress" rows="3"></textarea></label><button class="primary-btn" data-action="save-business">Enregistrer</button></section>
       <section class="panel settings-card section"><h2>Sauvegarde & exports</h2><div class="settings-actions"><button data-action="export-backup">Sauvegarder mes données</button><label class="file-button">Restaurer une sauvegarde<input id="backupInput" type="file" accept="application/json"></label><button data-action="export-hours">Exporter les heures CSV</button><button data-action="export-finance">Exporter les finances CSV</button></div></section>
-      <p class="version">LCMC v10 — reconstruction propre</p>
+      <p class="version">LCMC v11 — nouvelle expérience mobile</p>
     </section>
   </main>
 
   <nav class="bottom-nav" aria-label="Navigation principale">
     <button class="active" data-nav="home"><span>⌂</span>Accueil</button>
-    <button data-nav="farms"><span>♙</span>Exploitations</button>
+    <button data-nav="hours"><span>▦</span>Planning</button>
     <button class="plus-nav" data-action="add-entry" aria-label="Ajouter une journée">＋</button>
     <button data-nav="finance"><span>€</span>Finances</button>
     <button data-nav="profile"><span>♙</span>Profil</button>
